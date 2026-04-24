@@ -1,9 +1,4 @@
-import React, { useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
-
-const SERVICE_ID  = 'service_cz0jq73';
-const TEMPLATE_ID = 'template_55io6lq';
-const PUBLIC_KEY  = '1ycOmyJlRwRNofcRm';
+import React from 'react';
 
 // ── ContactCard sub-components ─────────────────────────────────────────────
 
@@ -62,53 +57,9 @@ const contactInfo: ContactInfoItem[] = [
   { icon: <MapPinIcon />, label: 'Address', value: 'General Santos City', className: 'col-span-2' },
 ];
 
-type Status = 'idle' | 'sending' | 'success' | 'error';
-
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
-  const [status, setStatus] = useState<Status>('idle');
-  const formRef = useRef<HTMLDivElement>(null);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e: React.MouseEvent) => {
+  const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault();
-
-    if (!form.name || !form.email || !form.message) {
-      alert('Please fill in your name, email, and message.');
-      return;
-    }
-
-    setStatus('sending');
-
-    try {
-      await emailjs.send(
-        SERVICE_ID,
-        TEMPLATE_ID,
-        {
-          from_name:  form.name,
-          name:       form.name,
-          from_email: form.email,
-          email:      form.email,
-          phone:      form.phone || 'Not provided',
-          subject:    `Portfolio contact from ${form.name}`,
-          message:    form.message,
-        },
-        PUBLIC_KEY
-      );
-
-      setStatus('success');
-      setForm({ name: '', email: '', phone: '', message: '' });
-
-      // Reset back to idle after 5 seconds
-      setTimeout(() => setStatus('idle'), 5000);
-    } catch (err) {
-      console.error('EmailJS error:', err);
-      setStatus('error');
-      setTimeout(() => setStatus('idle'), 5000);
-    }
   };
 
   return (
@@ -138,93 +89,25 @@ export default function Contact() {
           </div>
 
           {/* Right / form panel */}
-          <div className="contact-card-right" ref={formRef}>
+          <div className="contact-card-right">
             <div className="contact-form-group">
               <label className="contact-form-label">Name</label>
-              <input
-                type="text"
-                name="name"
-                className="contact-form-input"
-                placeholder="Your name"
-                value={form.name}
-                onChange={handleChange}
-                disabled={status === 'sending'}
-              />
+              <input type="text" className="contact-form-input" placeholder="Your name" />
             </div>
             <div className="contact-form-group">
               <label className="contact-form-label">Email</label>
-              <input
-                type="email"
-                name="email"
-                className="contact-form-input"
-                placeholder="your@email.com"
-                value={form.email}
-                onChange={handleChange}
-                disabled={status === 'sending'}
-              />
+              <input type="email" className="contact-form-input" placeholder="your@email.com" />
             </div>
             <div className="contact-form-group">
               <label className="contact-form-label">Phone</label>
-              <input
-                type="tel"
-                name="phone"
-                className="contact-form-input"
-                placeholder="+63 000 000 0000"
-                value={form.phone}
-                onChange={handleChange}
-                disabled={status === 'sending'}
-              />
+              <input type="tel" className="contact-form-input" placeholder="+63 000 000 0000" />
             </div>
             <div className="contact-form-group">
               <label className="contact-form-label">Message</label>
-              <textarea
-                name="message"
-                className="contact-form-textarea"
-                rows={4}
-                placeholder="Your message…"
-                value={form.message}
-                onChange={handleChange}
-                disabled={status === 'sending'}
-              />
+              <textarea className="contact-form-textarea" rows={4} placeholder="Your message…" />
             </div>
-
-            {/* Status messages */}
-            {status === 'success' && (
-              <div style={{
-                padding: '12px 16px',
-                background: 'rgba(0, 245, 212, 0.12)',
-                border: '1px solid rgba(0, 245, 212, 0.35)',
-                borderRadius: '8px',
-                color: 'var(--accent-primary)',
-                fontSize: '0.9rem',
-                fontWeight: 600,
-                textAlign: 'center',
-              }}>
-                ✓ Message sent! I'll get back to you soon.
-              </div>
-            )}
-            {status === 'error' && (
-              <div style={{
-                padding: '12px 16px',
-                background: 'rgba(255, 80, 80, 0.1)',
-                border: '1px solid rgba(255, 80, 80, 0.35)',
-                borderRadius: '8px',
-                color: '#ff5050',
-                fontSize: '0.9rem',
-                fontWeight: 600,
-                textAlign: 'center',
-              }}>
-                ✕ Something went wrong. Please try again.
-              </div>
-            )}
-
-            <button
-              className="contact-form-submit btn btn-primary"
-              onClick={handleSubmit}
-              disabled={status === 'sending'}
-              style={{ opacity: status === 'sending' ? 0.7 : 1, transition: 'opacity 0.3s' }}
-            >
-              {status === 'sending' ? 'Sending…' : 'Send Message'}
+            <button className="contact-form-submit btn btn-primary" onClick={handleSubmit}>
+              Send Message
             </button>
           </div>
         </div>

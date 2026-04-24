@@ -37,7 +37,7 @@ export default function Education() {
                 BS Accounting<br />Technology
               </h3>
               <p className="edu-subtitle">
-                Gensantos Foundation College Inc. &nbsp;·&nbsp; 2014 – 2017
+                Gensantos Foundation College Inc. &nbsp;·&nbsp; 2013 – 2017
               </p>
               <p className="edu-desc">
                 Built a strong foundation in financial accounting, bookkeeping,
