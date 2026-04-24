@@ -69,7 +69,34 @@ export default function App() {
         });
       }
 
-      // ── Skills floating — handled entirely in Skills.tsx via useLayoutEffect ──
+      // ── Skills floating ────────────────────────────────────────────
+      const skillEls = gsap.utils.toArray<HTMLElement>('.skill-item');
+      const total = skillEls.length;
+      // Divide into a grid: ~6 cols × ~5 rows to fill the full container evenly
+      const numCols = 6;
+      const numRows = Math.ceil(total / numCols);
+      const colW = 100 / numCols;
+      const rowH = 90 / numRows; // use 90% of height, leaving 5% margin top/bottom
+
+      skillEls.forEach((el, i) => {
+        const col = i % numCols;
+        const row = Math.floor(i / numCols);
+        // Place at grid cell center + small random jitter within the cell
+        const jitterX = (Math.random() - 0.5) * (colW * 0.5);
+        const jitterY = (Math.random() - 0.5) * (rowH * 0.5);
+        el.style.left = `${col * colW + colW / 2 + jitterX}%`;
+        el.style.top  = `${5 + row * rowH + rowH / 2 + jitterY}%`;
+        // Slower duration (4-7s), farther travel (±150px)
+        gsap.to(el, {
+          x: `random(-150, 150)`,
+          y: `random(-120, 120)`,
+          duration: gsap.utils.random(4, 7),
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+          delay: i * 0.12,
+        });
+      });
 
       // ── Project cards ──────────────────────────────────────────────
       gsap.utils.toArray<HTMLElement>('.project-card').forEach((card, i) => {
@@ -89,30 +116,16 @@ export default function App() {
         );
       });
 
-      // ── Education section ─────────────────────────────────────────
-      gsap.fromTo('.edu-card',
-        { y: 60, opacity: 0, scale: 0.96 },
+      // ── Education card ─────────────────────────────────────────────
+      gsap.fromTo('.education-card',
+        { x: -80, opacity: 0 },
         {
-          y: 0, opacity: 1, scale: 1,
-          duration: 0.9,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.edu-card',
-            start: 'top 88%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-      gsap.fromTo('.edu-left > *',
-        { y: 30, opacity: 0 },
-        {
-          y: 0, opacity: 1,
-          duration: 0.6,
-          stagger: 0.15,
+          x: 0, opacity: 1,
+          duration: 0.75,
           ease: 'power2.out',
           scrollTrigger: {
-            trigger: '.edu-card',
-            start: 'top 82%',
+            trigger: '.education-card',
+            start: 'top 88%',
             toggleActions: 'play none none reverse',
           },
         }

@@ -58,7 +58,7 @@ export default function Hero() {
         </div>
 
         <div className="hero-image">
-          <div className="hexagon-container" style={{ animation: 'floatUpDown 4s ease-in-out infinite' }}>
+          <div className="hexagon-container">
             <div className="glow-effect" />
             <div className="hexagon">
               <div className="hexagon-inner">

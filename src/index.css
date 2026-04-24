@@ -319,13 +319,16 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: rotate 20s linear infinite;
   z-index: 1;
 }
 
 @keyframes rotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+@keyframes floatUpDown {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
 }
 
 .hexagon-inner {
@@ -552,42 +555,44 @@ section {
   display: flex;
   align-items: center;
 }
-
+ 
 [data-theme="light"] .skills {
   background: linear-gradient(to top right, #e3f2fd, #90caf9, #64b5f6);
 }
-
+ 
 [data-theme="light"] .skill-item {
   color: #1e40af;
 }
-
+ 
 [data-theme="light"] .skill-item.weight-bold {
   color: #0277bd;
 }
-
+ 
 .skills-container {
   position: relative;
   width: 100%;
-  height: 700px;
+  height: 750px;
 }
-
+ 
 .skill-item {
   position: absolute;
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
   color: var(--text-secondary);
-  transition: all 0.3s;
-  padding: 10px 20px;
+  transition: color 0.3s, transform 0.3s;
+  padding: 8px 16px;
   border-radius: 5px;
   white-space: nowrap;
+  user-select: none;
+  /* opacity set inline in React so GSAP can own it */
 }
-
+ 
 .skill-item:hover {
   color: var(--accent-primary);
   transform: scale(1.1);
   text-shadow: 0 0 20px var(--shadow-color);
 }
-
+ 
 .skill-item.weight-light { font-weight: 300; font-size: 1rem; }
 .skill-item.weight-regular { font-weight: 400; font-size: 1.2rem; }
 .skill-item.weight-medium { font-weight: 500; font-size: 1.4rem; }
@@ -703,56 +708,175 @@ section {
 .education {
   background: var(--bg-primary);
 }
-
-.education-card {
-  max-width: 800px;
+ 
+/* ── Education card — matches reference image style ────────── */
+.edu-wrapper {
+  max-width: 1100px;
   margin: 0 auto;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 20px;
-  padding: 40px;
-  display: flex;
-  gap: 40px;
+  padding: 0 20px;
+}
+ 
+.edu-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 260px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+}
+ 
+/* Full-bleed background photo */
+.edu-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+  display: block;
+}
+ 
+/* Dark scrim — heavier on left so white text pops */
+.edu-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(5, 8, 20, 0.82) 0%,
+    rgba(5, 8, 20, 0.60) 55%,
+    rgba(5, 8, 20, 0.45) 100%
+  );
+}
+ 
+/* Two-column content layout */
+.edu-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  padding: 64px 60px;
   align-items: center;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s;
 }
-
-.education-card:hover {
-  border-color: var(--accent-primary);
-  transform: translateX(20px);
-  box-shadow: 0 20px 40px var(--shadow-color);
+ 
+/* LEFT — big bold title like reference */
+.edu-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
-
-.education-icon {
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  border-radius: 15px;
+ 
+.edu-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+ 
+.edu-subtitle {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+ 
+.edu-desc {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 420px;
+  margin: 0;
+}
+ 
+/* RIGHT — input + button row, same as reference */
+.edu-right {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
-  flex-shrink: 0;
 }
-
-.education-content h3 {
+ 
+.edu-form {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  align-items: center;
+}
+ 
+.edu-input {
+  flex: 1;
+  min-width: 0;
+  height: 52px;
+  background: rgba(30, 36, 56, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  padding: 0 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  color: #ffffff;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+ 
+.edu-input::placeholder {
+  color: rgba(255, 255, 255, 0.38);
+}
+ 
+.edu-input:focus {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+}
+ 
+/* White pill button — exact match to reference */
+.edu-btn {
+  height: 52px;
+  padding: 0 26px;
+  background: #ffffff;
+  color: #0d1117;
+  border: none;
+  border-radius: 10px;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.8rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  margin-bottom: 10px;
-  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
 }
-
-.education-content .school {
+ 
+.edu-btn:hover {
+  background: #e6e6e6;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+}
+ 
+.edu-success {
+  padding: 14px 20px;
+  background: rgba(0, 245, 212, 0.12);
+  border: 1px solid rgba(0, 245, 212, 0.35);
+  border-radius: 10px;
   color: var(--accent-primary);
   font-weight: 600;
-  margin-bottom: 10px;
+  font-size: 0.92rem;
+  width: 100%;
+  text-align: center;
 }
-
-.education-content .year {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
+ 
+/* Responsive */
+@media (max-width: 900px) {
+  .edu-content {
+    grid-template-columns: 1fr;
+    padding: 44px 36px;
+    gap: 32px;
+  }
+  .edu-title { font-size: 2.2rem; }
+  .edu-form { flex-direction: column; }
+  .edu-input, .edu-btn { width: 100%; justify-content: center; }
 }
 
 /* Contact */
