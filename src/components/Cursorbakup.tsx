@@ -11,6 +11,7 @@ export default function Cursor() {
     if (!cursor || !follower) return;
 
     let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
     let followerX = 0, followerY = 0;
     let rafId: number;
 
@@ -39,12 +40,12 @@ export default function Cursor() {
     };
 
     const animate = () => {
-      // Cursor snaps instantly
-      cursor.style.left = mouseX - 10 + 'px';
-      cursor.style.top = mouseY - 10 + 'px';
-      // Follower lerps with a subtle delay
-      followerX += (mouseX - followerX) * 0.12;
-      followerY += (mouseY - followerY) * 0.12;
+      cursorX += (mouseX - cursorX) * 0.2;
+      cursorY += (mouseY - cursorY) * 0.2;
+      followerX += (mouseX - followerX) * 0.1;
+      followerY += (mouseY - followerY) * 0.1;
+      cursor.style.left = cursorX - 10 + 'px';
+      cursor.style.top = cursorY - 10 + 'px';
       follower.style.left = followerX - 20 + 'px';
       follower.style.top = followerY - 20 + 'px';
       rafId = requestAnimationFrame(animate);

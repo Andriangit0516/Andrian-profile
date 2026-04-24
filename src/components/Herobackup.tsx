@@ -47,7 +47,7 @@ export default function Hero() {
               onClick={e => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}>
               Get In Touch
             </a>
-            <a href="/resume.pdf" className="btn" download="Andrian_Dayag_Resume.pdf">Download CV</a>
+            <a href="#" className="btn" download>Download CV</a>
           </div>
           <div className="social-links">
             <a href="#" aria-label="Facebook"><FacebookIcon /></a>
