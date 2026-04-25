@@ -126,10 +126,7 @@ export default function Hero() {
             <h1>Andrian Dayag</h1>
             <TypingAnimation typingSpeed={75} deletingSpeed={40} pauseDelay={2500} />
             <p>
-              Detail-oriented auditor with hands-on experience in inventory audits, variance analysis,
-              and financial statement audit of inventory accounts under a centralized audit function.
-              Strong background in accounts payable and operational finance, with advanced proficiency
-              in Microsoft Excel and working knowledge of Power BI.
+              Internal Auditor with hands-on experience in inventory, financial analysis, and process optimization—focused on making accounting faster and more reliable.
             </p>
             <div className="hero-buttons">
               <a

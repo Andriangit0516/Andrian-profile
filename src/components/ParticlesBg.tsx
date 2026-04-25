@@ -15,7 +15,7 @@ export default function ParticlesBg() {
 
     const colors = isDark
       ? { particles: "#00f5ff", lines: "#00d9ff", accent: "#0096c7" }
-      : { particles: "#0277bd", lines: "#0288d1", accent: "#039be5" };
+      : { particles: "#111827", lines: "#374151", accent: "#6b7280" };
 
     // @ts-ignore
     window.particlesJS("particles-js", {

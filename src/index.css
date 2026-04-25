@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&family=Source+Serif+Pro:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
 * {
   margin: 0;
@@ -42,7 +42,7 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   background: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
@@ -55,17 +55,17 @@ body {
 [data-theme="light"] .timeline-title,
 [data-theme="light"] .project-title,
 [data-theme="light"] .education-content h3 {
-  font-family: 'Source Serif Pro', serif;
-  font-weight: 600;
-}
-
-[data-theme="light"] .hero-content h1 {
-  font-family: 'Merriweather', serif;
+  font-family: 'Playfair Display', serif;
   font-weight: 700;
 }
 
+[data-theme="light"] .hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+}
+
 [data-theme="light"] .section-title {
-  font-family: 'Source Serif Pro', serif;
+  font-family: 'Playfair Display', serif;
 }
 
 /* Cursor */
@@ -124,7 +124,7 @@ nav {
 }
 
 .logo {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--accent-primary);
@@ -232,9 +232,9 @@ nav {
 }
 
 .hero-content h1 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Playfair Display', serif;
   font-size: 4rem;
-  font-weight: 700;
+  font-weight: 900;
   margin-bottom: 10px;
   background: linear-gradient(135deg, var(--hero-text-gradient-start) 0%, var(--hero-text-gradient-end) 100%);
   -webkit-background-clip: text;
@@ -268,7 +268,7 @@ nav {
   border: 2px solid var(--accent-primary);
   background: transparent;
   color: var(--accent-primary);
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
   border-radius: 5px;
@@ -398,7 +398,7 @@ section {
 }
 
 .section-title {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 60px;
@@ -420,6 +420,15 @@ section {
   height: 4px;
   background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
   border-radius: 2px;
+}
+
+
+.about-card {
+  max-width: 750px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
 }
 
 /* Experience / Timeline */
@@ -512,7 +521,7 @@ section {
 }
 
 .timeline-title {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 10px;
@@ -551,7 +560,7 @@ section {
 
 /* Skills */
 .skills {
-  background: linear-gradient(to top right, #000814, #003566, #0077b6);
+  background: linear-gradient(to top right, #050811, #0a0e1a, #111827);
   overflow: hidden;
   min-height: 100vh;
   display: flex;
@@ -559,15 +568,15 @@ section {
 }
  
 [data-theme="light"] .skills {
-  background: linear-gradient(to top right, #e3f2fd, #90caf9, #64b5f6);
+  background: #ffffff;
 }
  
 [data-theme="light"] .skill-item {
-  color: #1e40af;
+  color: #374151;
 }
  
 [data-theme="light"] .skill-item.weight-bold {
-  color: #0277bd;
+  color: #111827;
 }
  
 .skills-container {
@@ -578,7 +587,7 @@ section {
  
 .skill-item {
   position: absolute;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-weight: 600;
   color: var(--text-secondary);
   transition: color 0.3s, transform 0.3s;
@@ -654,7 +663,7 @@ section {
 }
 
 .project-title {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 15px;
@@ -768,7 +777,7 @@ section {
 }
  
 .edu-title {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 3rem;
   font-weight: 800;
   line-height: 1.1;
@@ -815,7 +824,7 @@ section {
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 10px;
   padding: 0 18px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 0.92rem;
   color: #ffffff;
   outline: none;
@@ -839,7 +848,7 @@ section {
   color: #0d1117;
   border: none;
   border-radius: 10px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 0.92rem;
   font-weight: 700;
   display: flex;
@@ -927,7 +936,7 @@ section {
 }
 
 .contact-card-title {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Playfair Display', serif;
   font-size: 2.4rem;
   font-weight: 700;
   color: var(--text-primary);
@@ -935,7 +944,7 @@ section {
 }
 
 [data-theme="light"] .contact-card-title {
-  font-family: 'Source Serif Pro', serif;
+  font-family: 'Playfair Display', serif;
 }
 
 .contact-card-desc {
@@ -1026,7 +1035,7 @@ section {
   border: 1px solid var(--card-border);
   border-radius: 8px;
   padding: 10px 14px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 0.9rem;
   color: var(--text-primary);
   outline: none;

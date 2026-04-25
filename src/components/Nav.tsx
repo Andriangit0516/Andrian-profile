@@ -16,7 +16,7 @@ export default function Nav({ toggleTheme, isDark }: NavProps) {
     <nav>
       <a href="#" className="logo">AD.</a>
       <ul className="nav-links">
-        {['#home', '#experience', '#skills', '#projects', '#education', '#contact'].map(href => (
+        {['#home', '#about', '#skills', '#projects', '#contact'].map(href => (
           <li key={href}>
             <a href={href} onClick={e => handleNavClick(e, href)}>
               {href.slice(1).charAt(0).toUpperCase() + href.slice(2)}

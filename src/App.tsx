@@ -10,6 +10,7 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Education from './components/Education';
 import Contact from './components/Contact';
+import About from './components/About';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -135,13 +136,14 @@ export default function App() {
       <Cursor />
       <Nav toggleTheme={toggleTheme} isDark={theme === 'dark'} />
       <Hero />
+      <About /> 
       <Experience />
+      <Education />
       <Skills />
       <Projects />
-      <Education />
       <Contact />
       <footer>
-        <p>Designed &amp; Built by Andrian Dayag © 2025</p>
+        <p>Designed &amp; Built by Andrian Dayag © 2026</p>
       </footer>
     </>
   );

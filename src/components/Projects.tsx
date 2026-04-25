@@ -23,7 +23,7 @@ const projects = [
 export default function Projects() {
   return (
     <section className="projects" id="projects">
-      <h2 className="section-title">Projects &amp; Applications</h2>
+      <h2 className="section-title">Projects and Applications</h2>
       <div className="projects-grid">
         {projects.map(p => (
           <div className="project-card" key={p.title}>
