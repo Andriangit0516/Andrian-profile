@@ -101,6 +101,8 @@ export default function Contact() {
 
       setStatus('success');
       setForm({ name: '', email: '', phone: '', message: '' });
+
+      // Reset back to idle after 5 seconds
       setTimeout(() => setStatus('idle'), 5000);
     } catch (err) {
       console.error('EmailJS error:', err);
@@ -110,11 +112,9 @@ export default function Contact() {
   };
 
   return (
-    <section
-      className="contact"
-      id="contact"
-      style={{ background: 'color-mix(in srgb, var(--bg-primary) 60%, #000 40%)' }}
-    >
+    <section className="contact" id="contact">
+      <h2 className="section-title">Get In Touch</h2>
+
       <div className="contact-card-wrapper">
         <div className="contact-card">
           {/* Corner plusses */}
@@ -188,6 +188,7 @@ export default function Contact() {
               />
             </div>
 
+            {/* Status messages */}
             {status === 'success' && (
               <div style={{
                 padding: '12px 16px',
