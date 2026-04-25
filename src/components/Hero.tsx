@@ -4,7 +4,7 @@ import profileImg from '../assets/profile.png';
 // ── Typing Animation Component ─────────────────────────────────────────────
 
 const roles = [
-  'Junior Internal Auditor',
+  'Internal Auditor',
   'Data Analyst',
   'Accounting Specialist',
   'Inventory Accountant',
