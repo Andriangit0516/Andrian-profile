@@ -3,13 +3,13 @@ import gsap from 'gsap';
 import ParticlesBg from './ParticlesBg';
 
 const skills = [
-  'Bookkeeping', 'Analytical & Problem Solving', 'Basic Accounting', 'Inventory Audit', 'Data Entry',
-  'Financial Statement Audit', 'Advanced Excel', 'Power Query', 'Power BI',
-  'Data Modeling', 'Basic DAX', 'Accounts Payable', 'Accounts Receivable', 'Reconciliation',
+  'Bookkeeping', 'Compliance', 'Basic Accounting', 'Inventory Audit', 'Financial Statement Audit', 
+  'Data Entry', 'Power Query', 'Power BI',
+  'Data Modeling', 'Basic DAX', 'Accounts Payable', 'Accounts Receivable', 'Advanced Excel', 'Reconciliation',
   'Data Validation', 'Confidentiality', 'Documentation Control', 'Record Keeping',
-  'Variance Analysis', 'Process Improvement', 'Compliance', 'Risk Assessment',
+  'Variance Analysis', 'Process Improvement', 'Analytical & Problem Solving', 'Risk Assessment',
   'Supply Chain Management', 'Customer Relations', 'People Management', 'Microsoft Excel',
-  'Attention to details', 'Time Management', 'AI-Assisted App Development',
+  'Attention to details', 'AI-Assisted App Development', 'Time Management',
 ];
 
 const weights = ['weight-light', 'weight-regular', 'weight-medium', 'weight-semibold', 'weight-bold'] as const;
