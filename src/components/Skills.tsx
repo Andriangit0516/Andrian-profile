@@ -16,11 +16,10 @@ const weights = ['weight-light', 'weight-regular', 'weight-medium', 'weight-semi
 
 export default function Skills() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const animationsRef = useRef<gsap.core.Tween[]>([]);
+  const rafRef = useRef<number | null>(null);
+  const tweensRef = useRef<gsap.core.Tween[]>([]);
 
   useEffect(() => {
-    // Use ResizeObserver so we always get the final rendered dimensions,
-    // even if the flex/grid parent resolves after the first paint.
     const container = containerRef.current;
     if (!container) return;
 
@@ -31,80 +30,88 @@ export default function Skills() {
 
       const W = container.offsetWidth;
       const H = container.offsetHeight;
-
-      // Guard: don't run until the container has real size
       if (W < 100 || H < 100) return;
       initiated = true;
 
       const els = Array.from(container.querySelectorAll<HTMLElement>('.skill-item'));
 
-      // ── Grid-based placement ──────────────────────────────────────────
-      // Divide the canvas into a grid of NUM_COLS × NUM_ROWS cells so
-      // every word gets its own zone, preventing clusters.
-      const NUM_COLS = 6;
-      const NUM_ROWS = Math.ceil(els.length / NUM_COLS);
-      const cellW = W / NUM_COLS;
-      const cellH = H / NUM_ROWS;
+      // Each word gets its own physics state
+      type Particle = {
+        el: HTMLElement;
+        x: number;
+        y: number;
+        vx: number;
+        vy: number;
+        w: number;
+        h: number;
+      };
 
-      // We need each element's real rendered size BEFORE positioning it,
-      // so briefly make it visible (opacity still 0 but not display:none).
-      els.forEach((el, i) => {
-        const col = i % NUM_COLS;
-        const row = Math.floor(i / NUM_COLS);
+      const particles: Particle[] = els.map((el, i) => {
+        // Measure the element
+        el.style.opacity = '0';
+        const w = el.offsetWidth  || 120;
+        const h = el.offsetHeight || 28;
 
-        // Measure the element (it's in the DOM, just opacity:0)
-        const elW = el.offsetWidth  || 120;
-        const elH = el.offsetHeight || 28;
+        // Fully random starting position within bounds
+        const x = Math.random() * (W - w);
+        const y = Math.random() * (H - h);
 
-        // Cell centre ± up to 30% of cell size as jitter
-        const jX = (Math.random() - 0.5) * cellW * 0.6;
-        const jY = (Math.random() - 0.5) * cellH * 0.6;
+        el.style.left = `${x}px`;
+        el.style.top  = `${y}px`;
 
-        const cx = col * cellW + cellW / 2 - elW / 2 + jX;
-        const cy = row * cellH + cellH / 2 - elH / 2 + jY;
+        // Random speed between 0.4 and 1.4 px/frame, random direction
+        const speed = 0.4 + Math.random() * 1.0;
+        const angle = Math.random() * Math.PI * 2;
+        const vx = Math.cos(angle) * speed;
+        const vy = Math.sin(angle) * speed;
 
-        // Clamp so words never bleed outside the container
-        el.style.left = `${Math.max(4, Math.min(W - elW - 4, cx))}px`;
-        el.style.top  = `${Math.max(4, Math.min(H - elH - 4, cy))}px`;
-
-        // Fade-in stagger, then start floating
-        const tween = gsap.fromTo(el,
+        // Fade in with stagger
+        const t = gsap.fromTo(el,
           { opacity: 0, scale: 0.75 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.55,
-            delay: i * 0.045,
-            ease: 'power2.out',
-            onComplete: () => {
-              const drift = gsap.to(el, {
-                x: `random(${-cellW * 0.18}, ${cellW * 0.18})`,
-                y: `random(${-cellH * 0.18}, ${cellH * 0.18})`,
-                duration: gsap.utils.random(6, 12),
-                repeat: -1,
-                yoyo: true,
-                ease: 'sine.inOut',
-                delay: Math.random() * 2,
-              });
-              animationsRef.current.push(drift);
-            },
-          }
+          { opacity: 1, scale: 1, duration: 0.55, delay: i * 0.04, ease: 'power2.out' }
         );
-        animationsRef.current.push(tween);
+        tweensRef.current.push(t);
+
+        return { el, x, y, vx, vy, w, h };
       });
+
+      // Animation loop — move each word and bounce off walls
+      const tick = () => {
+        const cW = container.offsetWidth;
+        const cH = container.offsetHeight;
+
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          // Bounce off right / left
+          if (p.x + p.w >= cW) { p.x = cW - p.w; p.vx = -Math.abs(p.vx); }
+          if (p.x <= 0)         { p.x = 0;         p.vx =  Math.abs(p.vx); }
+
+          // Bounce off bottom / top
+          if (p.y + p.h >= cH) { p.y = cH - p.h; p.vy = -Math.abs(p.vy); }
+          if (p.y <= 0)         { p.y = 0;         p.vy =  Math.abs(p.vy); }
+
+          p.el.style.left = `${p.x}px`;
+          p.el.style.top  = `${p.y}px`;
+        }
+
+        rafRef.current = requestAnimationFrame(tick);
+      };
+
+      rafRef.current = requestAnimationFrame(tick);
     };
 
-    // Try immediately (handles cases where layout is already resolved)
     init();
 
-    // Also watch for size changes (handles deferred flex/grid layout)
     const ro = new ResizeObserver(() => init());
     ro.observe(container);
 
     return () => {
       ro.disconnect();
-      animationsRef.current.forEach(t => t.kill());
-      animationsRef.current = [];
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      tweensRef.current.forEach(t => t.kill());
+      tweensRef.current = [];
     };
   }, []);
 
@@ -113,11 +120,6 @@ export default function Skills() {
       <ParticlesBg />
       <div style={{ position: 'relative', zIndex: 1, width: '100%' }}>
         <h2 className="section-title">Skills</h2>
-        {/* 
-          Key fix: explicit width: 100% on the container so it always
-          stretches to fill the section, not just its inline content.
-          Height is already set in CSS (.skills-container { height: 750px }).
-        */}
         <div
           className="skills-container"
           ref={containerRef}
