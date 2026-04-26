@@ -25,20 +25,20 @@
 }
 
 [data-theme="light"] {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f5f5f5;
-  --text-primary: #0a0a0a;
-  --text-secondary: #555555;
-  --accent-primary: #0a0a0a;
-  --accent-secondary: #333333;
+  --bg-primary: #f0f2f5;
+  --bg-secondary: #e6eaef;
+  --text-primary: #0f172a;
+  --text-secondary: #374151;
+  --accent-primary: #0d9488;
+  --accent-secondary: #0891b2;
   --card-bg: #ffffff;
-  --card-border: rgba(0, 0, 0, 0.12);
-  --nav-bg: rgba(255, 255, 255, 0.92);
-  --timeline-line: rgba(0, 0, 0, 0.15);
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --glow-color: rgba(0, 0, 0, 0.08);
-  --hero-text-gradient-start: #0a0a0a;
-  --hero-text-gradient-end: #444444;
+  --card-border: rgba(13, 148, 136, 0.25);
+  --nav-bg: rgba(240, 242, 245, 0.92);
+  --timeline-line: rgba(13, 148, 136, 0.35);
+  --shadow-color: rgba(13, 148, 136, 0.18);
+  --glow-color: rgba(13, 148, 136, 0.6);
+  --hero-text-gradient-start: #0f172a;
+  --hero-text-gradient-end: #0d9488;
 }
 
 body {
@@ -93,7 +93,7 @@ body {
 }
 
 [data-theme="light"] .cursor-follower {
-  background: rgba(0, 0, 0, 0.08);
+  background: rgba(13, 148, 136, 0.15);
 }
 
 .particle {
@@ -212,7 +212,7 @@ nav {
 }
 
 [data-theme="light"] .hero::before {
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.04) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.1) 0%, transparent 70%);
 }
 
 @keyframes pulse {
@@ -285,7 +285,7 @@ nav {
 }
 
 [data-theme="light"] .btn:hover {
-  background: rgba(0, 0, 0, 0.06);
+  background: rgba(13, 148, 136, 0.1);
 }
 
 .btn-primary {
@@ -568,15 +568,15 @@ section {
 }
  
 [data-theme="light"] .skills {
-  background: #f5f5f5;
+  background: #ffffff;
 }
  
 [data-theme="light"] .skill-item {
-  color: #555555;
+  color: #374151;
 }
  
 [data-theme="light"] .skill-item.weight-bold {
-  color: #0a0a0a;
+  color: #111827;
 }
  
 .skills-container {
@@ -649,7 +649,7 @@ section {
 }
 
 [data-theme="light"] .project-preview {
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.08));
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.1), rgba(8, 145, 178, 0.1));
 }
 
 .project-preview img {
@@ -693,7 +693,7 @@ section {
 }
 
 [data-theme="light"] .tech-tag {
-  background: rgba(0, 0, 0, 0.06);
+  background: rgba(13, 148, 136, 0.15);
 }
 
 .project-links {
@@ -987,7 +987,7 @@ section {
 }
 
 [data-theme="light"] .contact-card-info-icon {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(13, 148, 136, 0.08);
 }
 
 .contact-card-info-label {
@@ -1057,7 +1057,7 @@ section {
 
 [data-theme="light"] .contact-form-input:focus,
 [data-theme="light"] .contact-form-textarea:focus {
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12);
 }
 
 .contact-form-submit {
