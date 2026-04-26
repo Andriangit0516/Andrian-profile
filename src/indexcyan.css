@@ -27,17 +27,17 @@
 [data-theme="light"] {
   --bg-primary: #f0f2f5;
   --bg-secondary: #e6eaef;
-  --text-primary: #0f172a;
-  --text-secondary: #374151;
-  --accent-primary: #0d9488;
-  --accent-secondary: #0891b2;
+  --text-primary: #0e0e0f;
+  --text-secondary: #1b1d1f;
+  --accent-primary: #075751;
+  --accent-secondary: #073541;
   --card-bg: #ffffff;
-  --card-border: rgba(13, 148, 136, 0.25);
+  --card-border: rgba(13, 205, 189, 0.848);
   --nav-bg: rgba(240, 242, 245, 0.92);
-  --timeline-line: rgba(13, 148, 136, 0.35);
-  --shadow-color: rgba(13, 148, 136, 0.18);
-  --glow-color: rgba(13, 148, 136, 0.6);
-  --hero-text-gradient-start: #0f172a;
+  --timeline-line: rgba(16, 20, 19, 0.721);
+  --shadow-color: rgba(9, 232, 213, 0.18);
+  --glow-color: rgba(4, 177, 162, 0.6);
+  --hero-text-gradient-start: #2e3850;
   --hero-text-gradient-end: #0d9488;
 }
 
