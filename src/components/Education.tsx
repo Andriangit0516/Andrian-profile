@@ -1,16 +1,4 @@
-import { useState } from 'react';
-
-const ArrowRightIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-    strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
-  </svg>
-);
-
 export default function Education() {
-  const [email, setEmail] = useState('');
-  const [sent, setSent] = useState(false);
-
   return (
     <section className="education" id="education">
       <h2 className="section-title">Education</h2>
