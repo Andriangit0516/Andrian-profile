@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import profileImg from '../assets/profile.png';
+
+// ── Typing Animation ───────────────────────────────────────────────────────
 
 const roles = [
   'Internal Auditor',
@@ -19,7 +21,7 @@ function TypingAnimation({ typingSpeed = 80, deletingSpeed = 45, pauseDelay = 22
   const [displayed, setDisplayed] = useState('');
   const [roleIndex, setRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isPaused, setIsPaused]     = useState(false);
 
   useEffect(() => {
     const current = roles[roleIndex];
@@ -51,6 +53,77 @@ function TypingAnimation({ typingSpeed = 80, deletingSpeed = 45, pauseDelay = 22
     </h2>
   );
 }
+
+// ── Memoji Video with mouse tracking ──────────────────────────────────────
+
+function MemojiTracker() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const innerRef     = useRef<HTMLDivElement>(null);
+  const rafRef       = useRef<number | null>(null);
+  const targetRef    = useRef({ x: 0, y: 0 });
+  const currentRef   = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const onMouseMove = (e: MouseEvent) => {
+      const container = containerRef.current;
+      if (!container) return;
+      const rect    = container.getBoundingClientRect();
+      const cx      = rect.left + rect.width  / 2;
+      const cy      = rect.top  + rect.height / 2;
+      const dx      = e.clientX - cx;
+      const dy      = e.clientY - cy;
+      const dist    = Math.sqrt(dx * dx + dy * dy);
+      const angle   = Math.atan2(dy, dx);
+      const strength = Math.min(dist / 120, 1);
+      targetRef.current.x = Math.cos(angle) * strength * 7;
+      targetRef.current.y = Math.sin(angle) * strength * 7;
+    };
+
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+    const animate = () => {
+      const cur = currentRef.current;
+      const tgt = targetRef.current;
+      cur.x = lerp(cur.x, tgt.x, 0.07);
+      cur.y = lerp(cur.y, tgt.y, 0.07);
+      if (innerRef.current) {
+        innerRef.current.style.transform = `translate(${cur.x}px, ${cur.y}px)`;
+      }
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    rafRef.current = requestAnimationFrame(animate);
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  return (
+    <div ref={containerRef} style={{ position: 'relative', width: '100%', height: '100%' }}>
+      <div ref={innerRef} style={{ position: 'absolute', inset: 0, willChange: 'transform' }}>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center top',
+            display: 'block',
+          }}
+        >
+          <source src="/animated.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+  );
+}
+
+// ── Hero ───────────────────────────────────────────────────────────────────
 
 export default function Hero() {
   const [isMemoji, setIsMemoji] = useState(false);
@@ -128,29 +201,15 @@ export default function Hero() {
                 position: 'relative',
               }}
               onClick={handleFlip}
+              title={isMemoji ? 'Click to show real photo' : 'Click to show memoji'}
             >
               <div className="glow-effect" />
               <div className="hexagon">
                 <div className="hexagon-inner">
-                  {isMemoji ? (
-                    <video
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'center top',
-                        display: 'block',
-                      }}
-                    >
-                      <source src="/animated.webm" type="video/webm" />
-                    </video>
-                  ) : (
-                    <img src={profileImg} alt="Andrian Dayag" className="profile-img" />
-                  )}
+                  {isMemoji
+                    ? <MemojiTracker />
+                    : <img src={profileImg} alt="Andrian Dayag" className="profile-img" />
+                  }
                 </div>
               </div>
               <span className="toggle-hint">

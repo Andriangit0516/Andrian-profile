@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import profileImg from '../assets/profile.png';
+
+// ── Typing Animation ───────────────────────────────────────────────────────
 
 const roles = [
   'Internal Auditor',
@@ -51,6 +53,76 @@ function TypingAnimation({ typingSpeed = 80, deletingSpeed = 45, pauseDelay = 22
     </h2>
   );
 }
+
+// ── Memoji Video — CSS-only tracking, no rAF loop ─────────────────────────
+
+function MemojiTracker() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const innerRef     = useRef<HTMLDivElement>(null);
+  const tickingRef   = useRef(false);
+
+  useEffect(() => {
+    const onMouseMove = (e: MouseEvent) => {
+      if (tickingRef.current) return;
+      tickingRef.current = true;
+
+      requestAnimationFrame(() => {
+        const container = containerRef.current;
+        const inner     = innerRef.current;
+        if (!container || !inner) { tickingRef.current = false; return; }
+
+        const rect     = container.getBoundingClientRect();
+        const cx       = rect.left + rect.width  / 2;
+        const cy       = rect.top  + rect.height / 2;
+        const dx       = e.clientX - cx;
+        const dy       = e.clientY - cy;
+        const dist     = Math.sqrt(dx * dx + dy * dy);
+        const angle    = Math.atan2(dy, dx);
+        const strength = Math.min(dist / 150, 1);
+        const x        = Math.cos(angle) * strength * 6;
+        const y        = Math.sin(angle) * strength * 6;
+
+        inner.style.transform = `translate(${x}px, ${y}px)`;
+        tickingRef.current = false;
+      });
+    };
+
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMouseMove);
+  }, []);
+
+  return (
+    <div ref={containerRef} style={{ position: 'relative', width: '100%', height: '100%' }}>
+      <div
+        ref={innerRef}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          willChange: 'transform',
+          transition: 'transform 0.15s ease-out',
+        }}
+      >
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center top',
+            display: 'block',
+          }}
+        >
+          <source src="/animated.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+  );
+}
+
+// ── Hero ───────────────────────────────────────────────────────────────────
 
 export default function Hero() {
   const [isMemoji, setIsMemoji] = useState(false);
@@ -128,29 +200,15 @@ export default function Hero() {
                 position: 'relative',
               }}
               onClick={handleFlip}
+              title={isMemoji ? 'Click to show real photo' : 'Click to show memoji'}
             >
               <div className="glow-effect" />
               <div className="hexagon">
                 <div className="hexagon-inner">
-                  {isMemoji ? (
-                    <video
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'center top',
-                        display: 'block',
-                      }}
-                    >
-                      <source src="/animated.webm" type="video/webm" />
-                    </video>
-                  ) : (
-                    <img src={profileImg} alt="Andrian Dayag" className="profile-img" />
-                  )}
+                  {isMemoji
+                    ? <MemojiTracker />
+                    : <img src={profileImg} alt="Andrian Dayag" className="profile-img" />
+                  }
                 </div>
               </div>
               <span className="toggle-hint">
