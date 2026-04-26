@@ -126,7 +126,7 @@ export default function Hero() {
             <h1>Andrian Dayag</h1>
             <TypingAnimation typingSpeed={75} deletingSpeed={40} pauseDelay={2500} />
             <p>
-              Internal Auditor with hands-on experience in inventory, financial analysis, and process optimization—focused on making accounting faster and more reliable.
+              Internal Auditor with hands-on experience in inventory audit, financial analysis, and process optimization—focused on ensuring accuracy, strengthening compliance, and maintaining reliable financial reporting.
             </p>
             <div className="hero-buttons">
               <a
@@ -134,15 +134,9 @@ export default function Hero() {
                 className="btn btn-primary"
                 onClick={e => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}
               >
-                Get In Touch
+                Hire me
               </a>
               <a href="/resume.pdf" className="btn" download="Andrian_Dayag_Resume.pdf">Download CV</a>
-            </div>
-            <div className="social-links">
-              <a href="#" aria-label="Facebook"><FacebookIcon /></a>
-              <a href="#" aria-label="Twitter / X"><TwitterXIcon /></a>
-              <a href="#" aria-label="Instagram"><InstagramIcon /></a>
-              <a href="#" aria-label="LinkedIn"><LinkedInIcon /></a>
             </div>
           </div>
 

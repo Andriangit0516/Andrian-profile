@@ -39,38 +39,18 @@ export default function Education() {
               <p className="edu-subtitle">
                 Gensantos Foundation College Inc. &nbsp;·&nbsp; 2013 – 2017
               </p>
+              
+            </div>
+
+            {/* RIGHT — email input + button (matching reference layout) */}
+            <div className="edu-right">
+              
               <p className="edu-desc">
                 Built a strong foundation in financial accounting, bookkeeping,
                 and business processes — the bedrock of every audit and data
                 analysis role since.
               </p>
-            </div>
-
-            {/* RIGHT — email input + button (matching reference layout) */}
-            <div className="edu-right">
-              {sent ? (
-                <div className="edu-success">
-                  ✓ &nbsp;Got it! I'll be in touch soon.
-                </div>
-              ) : (
-                <form
-                  className="edu-form"
-                  onSubmit={e => { e.preventDefault(); if (email.trim()) setSent(true); }}
-                >
-                  <input
-                    type="email"
-                    placeholder="Email address"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    className="edu-input"
-                    required
-                    aria-label="Email address"
-                  />
-                  <button type="submit" className="edu-btn">
-                    Get in touch &nbsp;<ArrowRightIcon />
-                  </button>
-                </form>
-              )}
+            
             </div>
 
           </div>

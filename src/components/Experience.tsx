@@ -1,30 +1,30 @@
 const experiences = [
   {
-    date: '2025 – Present',
+    date: 'February 2025 – Present',
     title: 'Junior Internal Auditor',
     company: 'Brigada Distribution Inc. – Central Support Group',
     bullets: [
       'Conducted inventory audits across business units, including physical count, reconciliation, and documentation review.',
       'Performed variance analysis, identifying discrepancies between system records, physical inventory, and financial reports.',
       'Participated in financial statement audit of inventory accounts, ensuring accuracy, completeness, and proper valuation.',
-      "Assessment of business units' performance using the company's Quality Rubrics framework covering Accounting & Finance, People Management, Supply Chain, and Customer Relations.",
+      "Assessment of business units' performance using the company's Quality Rubrics framework covering Accounting & Finance, People Management, Supply Chain, and Customer Relations Management.",
       'Documented audit findings, risks, and compliance gaps, and provided recommendations for process improvement.',
       'Utilized Excel-based working papers and audit schedules to support conclusions and reporting.',
     ],
   },
   {
-    date: '2020 – 2025',
-    title: 'Accounts Payable Clerk',
+    date: 'October 2019 – February 2025',
+    title: 'Accounts Payable Specialist',
     company: 'Klee Trading Corporation',
     bullets: [
       'Processed and monitored payments to major principal suppliers including Petron Corporation and San Miguel Foods, Inc.',
-      'Maintained accurate records of purchases and accounts payable balances.',
+      'Maintained accurate records of trade purchases and accounts payable balances.',
       'Prepared billing and claims related to pricing discrepancies and promotional activities.',
       'Reconciled supplier statements and ensured timely settlement of obligations.',
     ],
   },
   {
-    date: '2017 – 2019',
+    date: 'August 2017 – October 2019',
     title: 'Administrative Assistant - Data Encoder',
     company: 'Klee Trading Corporation (Salesforce)',
     bullets: [

@@ -3,13 +3,12 @@ import gsap from 'gsap';
 import ParticlesBg from './ParticlesBg';
 
 const skills = [
-  'Bookkeeping', 'Compliance', 'Basic Accounting', 'Inventory Audit', 'Financial Statement Audit', 
-  'Data Entry', 'Power Query', 'Power BI',
-  'Data Modeling', 'Basic DAX', 'Accounts Payable', 'Accounts Receivable', 'Advanced Excel', 'Reconciliation',
-  'Data Validation', 'Confidentiality', 'Documentation Control', 'Record Keeping',
+  'Bookkeeping', 'Compliance', 'Basic Accounting', 'Documentation Control', 'Financial Statement Audit', 
+  'Data Entry', 'Power Query', 'Data Modeling', 'Power BI', 'Basic DAX', 'Accounts Payable', 'Accounts Receivable', 'Advanced Excel', 'Reconciliation',
+  'Data Validation', 'Confidentiality',  'Inventory Audit', 'Record Keeping',
   'Variance Analysis', 'Process Improvement', 'Analytical & Problem Solving', 'Risk Assessment',
-  'Supply Chain Management', 'Customer Relations', 'People Management', 'Microsoft Excel',
-  'Attention to details', 'AI-Assisted App Development', 'Time Management',
+  'Supply Chain Management', 'Microsoft Excel',
+  'Attention to details', 'AI-Assisted App Development',
 ];
 
 const weights = ['weight-light', 'weight-regular', 'weight-medium', 'weight-semibold', 'weight-bold'] as const;
@@ -60,7 +59,7 @@ export default function Skills() {
         el.style.top  = `${y}px`;
 
         // Random speed between 0.4 and 1.4 px/frame, random direction
-        const speed = 0.4 + Math.random() * 1.0;
+        const speed = 1 + Math.random() * 2;
         const angle = Math.random() * Math.PI * 2;
         const vx = Math.cos(angle) * speed;
         const vy = Math.sin(angle) * speed;
