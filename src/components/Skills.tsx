@@ -59,7 +59,7 @@ export default function Skills() {
         el.style.top  = `${y}px`;
 
         // Random speed between 0.4 and 1.4 px/frame, random direction
-        const speed = 1 + Math.random() * 2;
+        const speed = 0.15 + Math.random() * 0.25;
         const angle = Math.random() * Math.PI * 2;
         const vx = Math.cos(angle) * speed;
         const vy = Math.sin(angle) * speed;
